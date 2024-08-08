@@ -56,25 +56,34 @@ h4 {
 
 form {
   margin-top: 10px;
-  display: flex;
 }
 
-input {
+.input-bar {
+  display: flex;
+  overflow: hidden;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+}
+
+input[type="text"] {
+  border: none;
   flex-grow: 1;
   margin-right: 10px;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  outline: none;
 }
 
-.pink-btn,
+.send-btn,
 .chat-header button {
-  background-color: #ff5a5f;
-  color: white;
   border: none;
+  background: none;
+  outline: none;
   padding: 10px 15px;
-  border-radius: 5px;
   cursor: pointer;
+}
+
+.send-btn:hover {
+  opacity: 0.8;
 }
 
 #loader img {
