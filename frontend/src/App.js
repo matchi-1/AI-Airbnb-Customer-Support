@@ -1,12 +1,20 @@
 import React from "react";
-import "./css/main.css";
 import Chatbox from "./components/chatbox.jsx";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import SignUp from "./components/signup";
+import Login from "./components/login.jsx";
+import Header from "./components/header.jsx";
 
 function App() {
   return (
-    <div>
-      <Chatbox />
-    </div>
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Chatbox />} />
+        <Route path="signup" element={<SignUp />} />
+        <Route path="login" element={<Login />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
