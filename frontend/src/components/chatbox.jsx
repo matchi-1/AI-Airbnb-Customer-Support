@@ -67,16 +67,18 @@ export default function Chatbox() {
           )}
         </div>
         <form onSubmit={sendMessage}>
-          <input
-            type="text"
-            value={userInput}
-            onChange={(e) => setUserInput(e.target.value)}
-            placeholder="Enter your message"
-            disabled={loading}
-          />
-          <button className="pink-btn" type="submit">
-            Send
-          </button>
+          <div className="input-bar">
+            <input
+              type="text"
+              value={userInput}
+              onChange={(e) => setUserInput(e.target.value)}
+              placeholder="Enter your message"
+              disabled={loading}
+            />
+            <button className="send-btn" type="submit">
+              <img src="/assets/images/send.png" alt="Send Message" />
+            </button>
+          </div>
         </form>
       </div>
     </div>
