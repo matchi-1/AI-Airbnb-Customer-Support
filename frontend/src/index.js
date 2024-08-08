@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import {Chat, Login} from './App';
 import reportWebVitals from './reportWebVitals';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+const login = ReactDOM.createRoot(document.getElementById('login'));
+login.render(
   <React.StrictMode>
-    <App />
+    <Login />
   </React.StrictMode>
 );
+
 
 reportWebVitals();

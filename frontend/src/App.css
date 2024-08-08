@@ -6,11 +6,21 @@ body {
   min-height: 100vh;
   background-color: #f0f0f0;
 }
-
+#container {
+  background-color: #fff;
+  display: flex;
+  align-items: flex-start;
+  border-radius: 10px;
+  padding: 20px;
+  flex-direction: column;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  width: 400px;
+}
 #chat-container {
   background-color: #fff;
   border-radius: 10px;
   padding: 20px;
+  align-items: center;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   width: 400px;
 }
