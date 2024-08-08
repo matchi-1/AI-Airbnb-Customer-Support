@@ -53,7 +53,9 @@ export default function Chatbox() {
           onChange={(e) => setUserInput(e.target.value)}
           placeholder="Enter your message"
         />
-        <button type="submit">Send</button>
+        <button className="pink-btn" type="submit">
+          Send
+        </button>
       </form>
       {loading && (
         <div id="loader">
