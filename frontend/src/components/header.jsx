@@ -48,7 +48,7 @@ export default function Header() {
           <div className="offcanvas-body">
             <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
               <li className="nav-item">
-                <Link to="/login" className="nav-link" aria-current="page">
+                <Link to="/" className="nav-link" aria-current="page">
                   Login
                 </Link>
               </li>
@@ -58,7 +58,7 @@ export default function Header() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to="/" className="nav-link">
+                <Link to="/chat" className="nav-link">
                   Chat
                 </Link>
               </li>

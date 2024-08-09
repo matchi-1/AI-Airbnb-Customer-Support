@@ -3,13 +3,16 @@ import "../css/signup.css";
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import {auth, db} from '../firebase';
 import { doc, setDoc } from 'firebase/firestore';
+import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
   const [first_name, setFirstName] = useState('')
   const [last_name, setLastName]= useState('')
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -24,6 +27,8 @@ export default function SignUp() {
         email: email,
         password: password,
       });
+
+      navigate('/chat');
 
     } catch (err) {
       setError(err.message);
