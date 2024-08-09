@@ -10,9 +10,18 @@ export default function SignUp() {
   const [last_name, setLastName]= useState('')
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPwd, setConfirmPwd] = useState('')
 
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+  function comparePasswords(pwd) {
+    if(pwd !== password){
+      setError('Passwords do not match')
+    } else {
+      setError(null)
+    }
+  }
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -79,8 +88,11 @@ export default function SignUp() {
           <label>Confirm Password</label>
           <input
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={confirmPwd}
+            onChange={(e) => {
+              setConfirmPwd(e.target.value);
+              comparePasswords(e.target.value);
+            }}
             required
           />
         </div>
@@ -89,7 +101,7 @@ export default function SignUp() {
           <p><a href = "/SignUp.js">Already have an account?</a></p>
         </div>
       </form>
-      {error && <p>{error}</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
   </div>
   );
 }
