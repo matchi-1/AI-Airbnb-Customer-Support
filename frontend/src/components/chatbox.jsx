@@ -96,7 +96,7 @@ export default function Chatbox() {
       <div id="chat-main">
         <div id="chat-history">
           {firstChat ? (
-            <div>
+            <div id="prompt-container">
               {prompts.map((prompt, index) => (
                 <button
                   onClick={() => {
