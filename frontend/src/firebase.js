@@ -1,10 +1,11 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import {getAuth} from 'firebase/auth';
+import {getAuth } from 'firebase/auth';
+import {getFirestore} from 'firebase/firestore';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY,
+  apiKey: "AIzaSyCiaQSWy-CjEzLrFa2kTW5qzO-nLFsUbVY",
   authDomain: "airbnb-ai-support.firebaseapp.com",
   projectId: "airbnb-ai-support",
   storageBucket: "airbnb-ai-support.appspot.com",
@@ -15,5 +16,6 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
-export {auth}
+export {auth, db}
