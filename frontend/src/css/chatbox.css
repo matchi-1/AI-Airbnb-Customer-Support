@@ -1,6 +1,6 @@
 #chat-container {
   background-color: #fff;
-  border-radius: 10px;
+  border-radius: 15px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   width: 400px;
   margin-top: 20px;
@@ -11,8 +11,6 @@
 }
 
 h4 {
-  font-family: "Roboto", sans-serif;
-  font-size: 19px;
   margin: 0;
   color: #ffffff;
 }
@@ -26,9 +24,14 @@ h4 {
 .bot-message div {
   width: 100%;
   padding: 0.5rem 0.8rem;
-  border-radius: 10px;
+  border-radius: 15px;
   margin-bottom: 5px;
   margin-right: 12px;
+}
+
+.user-message,
+.bot-message {
+  font-size: 16px;
 }
 
 .user-message {
@@ -45,6 +48,7 @@ h4 {
 
 .bot-message {
   display: flex;
+  color: #737373;
   justify-content: flex-start;
 }
 
@@ -66,6 +70,8 @@ form {
 }
 
 input[type="text"] {
+  font-size: 16px;
+  color: #090909;
   border: none;
   flex-grow: 1;
   margin-right: 10px;
@@ -93,9 +99,14 @@ input[type="text"] {
 
 .chat-header {
   display: flex;
-  padding: 0.5rem 1rem;
-  border-radius: 10px 10px 0 0;
+  padding: 0rem 1.5rem;
+  border-radius: 15px 15px 0 0;
   justify-content: space-between;
   align-items: center;
   background-color: #ff5a5f;
+}
+
+.chat-header h4 {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 21px;
 }
