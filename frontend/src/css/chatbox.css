@@ -80,6 +80,11 @@ form {
   border: 2px solid #d8d8d8;
 }
 
+.input-bar.active {
+  border: 2px solid #ffabae;
+  box-shadow: 0 0 4px rgba(255, 90, 96, 0.317);
+}
+
 .input-bar input::placeholder {
   color: rgb(192, 192, 192); 
 }
@@ -157,4 +162,48 @@ input[type="text"] {
 #prompt-container button:hover {
   background-color: #ff5a5f;
   color: white;
+}
+
+.feedback-container {
+  display: flex;
+  justify-content: flex-start; 
+  margin: 0rem 1rem .8rem 1rem;
+}
+
+.feedback-container button {
+  border: none;
+  background: none;
+  padding: 0;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.feedback-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  padding: 3px;
+  transition: transform 0.2s ease;
+  border: 1px solid #c1c1c1;
+}
+
+.feedback-icon:hover {
+  transform: scale(1.1);
+}
+
+.selected .feedback-icon {
+  border: 2px solid #ff9191;
+}
+
+.txt-feedback-btn{
+  background: none;
+  margin-left: .5rem;
+  color: #c1c1c1;
+  font-size: .75rem;
+  text-decoration: underline;
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+.txt-feedback-btn:hover{
+  color: #9c9c9c;
 }
