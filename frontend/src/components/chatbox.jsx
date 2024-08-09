@@ -85,7 +85,7 @@ export default function Chatbox() {
   return (
     <div id="chat-container">
       <div className="chat-header">
-        <h4>AI Assistant</h4>
+        <p>AI Assistant</p>
         <button>
           <i
             className="bi bi-x-lg"
@@ -123,7 +123,7 @@ export default function Chatbox() {
           <div ref={bottomRef}></div>
           {loading && (
             <div id="loader">
-              <img src="/assets/gifs/loader.gif" alt="Loading..." />
+              <img src="/assets/gifs/loader1.gif" alt="Loading..." />
             </div>
           )}
         </div>
