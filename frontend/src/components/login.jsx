@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import "../css/login.css";
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import {auth} from '../firebase';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link} from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -47,7 +47,7 @@ export default function Login() {
         </div>
         <button type="submit">Login</button>
         <div>
-          <p><a href = "/SignUp.js">Don't have an account?</a></p>
+          <p><Link to="/signup">Don't have an account?</Link></p>
         </div>
       </form>
       {error && <p>{error}</p>}

@@ -3,7 +3,7 @@ import "../css/signup.css";
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import {auth, db} from '../firebase';
 import { doc, setDoc } from 'firebase/firestore';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link} from "react-router-dom";
 
 export default function SignUp() {
   const [first_name, setFirstName] = useState('')
@@ -98,7 +98,7 @@ export default function SignUp() {
         </div>
         <button type="submit">Submit</button>
         <div>
-          <p><a href = "/SignUp.js">Already have an account?</a></p>
+          <p><Link to = "/">Already have an account?</Link></p>
         </div>
       </form>
       {error && <p style={{ color: 'red' }}>{error}</p>}
