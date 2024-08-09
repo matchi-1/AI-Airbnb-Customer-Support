@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "cors": "^2.8.5",
-    "react-router-dom": "^6.26.0"
+    "react-router-dom": "^6.26.0",
+    "rxjs": "^7.8.1"
   },
   "name": "airbnb-ai-customer-support",
   "version": "1.0.0",
