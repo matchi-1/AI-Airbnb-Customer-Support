@@ -1,8 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "../css/header.css";
 
 export default function Header() {
+  const location = useLocation();
+  const currentPath = location.pathname;
+
   return (
     <nav className="navbar bg-body-tertiary fixed-top">
       <div className="container-fluid">
@@ -47,21 +50,27 @@ export default function Header() {
           </div>
           <div className="offcanvas-body">
             <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
-              <li className="nav-item">
-                <Link to="/" className="nav-link" aria-current="page">
-                  Login
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/signup" className="nav-link">
-                  Signup
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/chat" className="nav-link">
-                  Chat
-                </Link>
-              </li>
+              {currentPath !== "/" && (
+                <li className="nav-item">
+                  <Link to="/" className="nav-link" aria-current="page">
+                    Login
+                  </Link>
+                </li>
+              )}
+              {currentPath !== "/signup" && (
+                <li className="nav-item">
+                  <Link to="/signup" className="nav-link">
+                    Signup
+                  </Link>
+                </li>
+              )}
+              {currentPath !== "/chat" && (
+                <li className="nav-item">
+                  <Link to="/chat" className="nav-link">
+                    Chat
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
         </div>

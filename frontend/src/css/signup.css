@@ -1,0 +1,23 @@
+.form-group {
+  display: flex;
+  width: 100%;
+}
+
+.form-group .form-input:first-child {
+  margin-right: 20px;
+}
+
+.signup-container {
+  width: 575px !important;
+}
+
+@media (max-width: 600px) {
+  .signup-container {
+    margin: 100px 0 150px 0px !important;
+    width: 100% !important;
+  }
+
+  .form-group {
+    flex-direction: column;
+  }
+}

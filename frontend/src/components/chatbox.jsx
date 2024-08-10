@@ -92,6 +92,9 @@ export default function Chatbox() {
       });
 
       const data = await response.json();
+      const formattedBotResponse = formatBotMessage(data.response);
+      console.log("formattedBotResponse", formattedBotResponse);
+      console.log("data.response", data.response);
 
       // Generate a unique messageId for the reply message
       const messageId = generateMessageId();
@@ -99,7 +102,7 @@ export default function Chatbox() {
       // Add reply to chat history with the generated messageId
       setChatHistory((prevChatHistory) => [
         ...prevChatHistory,
-        { id: messageId, type: "bot", text: data.response },
+        { id: messageId, type: "bot", text: formattedBotResponse },
       ]);
 
       setUserInput("");
@@ -133,16 +136,35 @@ export default function Chatbox() {
       });
 
       const data = await response.json();
-
+      const formattedBotResponse = formatBotMessage(data.response);
+      console.log("formattedBotResponse", formattedBotResponse);
+      console.log("data.text", data.response);
       setChatHistory((prevChatHistory) => [
         ...prevChatHistory,
-        { id: generateMessageId(), type: "bot", text: data.response },
+        { id: generateMessageId(), type: "bot", text: formattedBotResponse },
       ]);
     } catch (error) {
       console.error("Error:", error);
     } finally {
       setLoading(false);
     }
+  };
+
+  const formatBotMessage = (message) => {
+    message = message.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+    message = message.replace(/\n/g, "<br>");
+    message = message.replace(/(\d+)\.\s+/g, "<li>");
+    message = message.replace(/<\/li><br>/g, "</li>");
+
+    if (message.includes("<li>")) {
+      message = "<ol>" + message + "</ol>";
+    }
+    message = message.replace(
+      /(https?:\/\/[^\s]+)/g,
+      '<a href="$1" target="_blank">$1</a>'
+    );
+
+    return message;
   };
 
   useEffect(() => {
@@ -189,7 +211,7 @@ export default function Chatbox() {
               <div
                 className={msg.type === "user" ? "user-message" : "bot-message"}
               >
-                <div>{msg.text}</div>
+                <div dangerouslySetInnerHTML={{ __html: msg.text }}></div>
               </div>
               {msg.type === "bot" && (
                 <div className="feedback-container">

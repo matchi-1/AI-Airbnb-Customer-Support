@@ -14,4 +14,3 @@ frontend/.env
 .env.local
 
 /frontend/node_modules/.cache/
->>>>>>> 9927fd0b67aa39fd79502e60810c6181cef290c6

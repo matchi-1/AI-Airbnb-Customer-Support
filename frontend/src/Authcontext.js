@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { onAuthStateChanged, signInWithEmailAndPassword, fetchSignInMethodsForEmail, signOut } from 'firebase/auth';
 import { auth, db } from './firebase'; 
 import { getDocs, query, where, collection } from 'firebase/firestore';
 
@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         setCurrentUser(user);
-        const profile = await fetchUserProfile(user.email); // Use user.email here
+        const profile = await fetchUserProfile(user.email); 
         setUserProfile(profile);
       } else {
         setCurrentUser(null);
@@ -34,7 +34,6 @@ export const AuthProvider = ({ children }) => {
         console.log("No such document!");
         return null;
       } else {
-        // Assuming there should be one document per email
         const userDoc = querySnapshot.docs[0];
         return userDoc.data();
       }
@@ -53,13 +52,15 @@ export const AuthProvider = ({ children }) => {
       setCurrentUser(user);
       setUserProfile(profile);
 
-      console.log("User set");
-      console.log(profile);
-
     } catch (error) {
-      console.error('Error logging in:', error);
-      throw error;
+      const profile = await fetchUserProfile(email);
+      if (profile == null) {
+        throw new Error('No user found with this email, try again.');
+      } else {
+        throw new Error('Invalid password, try again')
+      }
     }
+      
   };
 
   const logout = async () => {

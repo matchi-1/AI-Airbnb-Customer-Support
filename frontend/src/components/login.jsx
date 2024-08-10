@@ -23,13 +23,13 @@ export default function Login() {
   };
 
   return (
-    <div id="cred-container">
+    <div id="content-container">
       <div className="content-header">
         <h2>LOGIN</h2>
       </div>
       <div className="content-main">
-        <form onSubmit={handleLogin}>
-          <div>
+        <form onSubmit={handleLogin} className="content-form">
+          <div className="form-input">
             <label>Email:</label>
             <input
               type="email"
@@ -38,7 +38,7 @@ export default function Login() {
               required
             />
           </div>
-          <div>
+          <div className="form-input">
             <label>Password:</label>
             <input
               type="password"
@@ -47,10 +47,12 @@ export default function Login() {
               required
             />
           </div>
-          <button type="submit">Login</button>
-          <div>
+          <button type="submit" className="form-submit">
+            Login
+          </button>
+          <div className="form-redirect">
             <p>
-              <Link to="/signup">Don't have an account?</Link>
+              <Link to="/signup">Don't have an account yet?</Link>
             </p>
           </div>
         </form>

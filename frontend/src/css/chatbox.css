@@ -55,6 +55,8 @@
 
 .bot-message {
   display: flex;
+  flex-direction: column;
+  align-self: center;
   color: #8b8b8b;
   justify-content: flex-start;
 }
