@@ -57,8 +57,12 @@ export const AuthProvider = ({ children }) => {
       console.log(profile);
 
     } catch (error) {
-      console.error('Error logging in:', error);
-      throw error;
+        const profile = await fetchUserProfile(email);
+        if (profile == null) {
+          throw new Error('No user found with this email, try again.');
+        } else {
+          throw new Error('Invalid password, try again')
+        }
     }
   };
 

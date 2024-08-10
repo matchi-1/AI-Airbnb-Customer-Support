@@ -24,11 +24,7 @@ async function runChat(userInput) {
     temperature: 1,
     topP: 0.95,
     topK: 64,
-<<<<<<< HEAD
   };  
-=======
-  };
->>>>>>> 9927fd0b67aa39fd79502e60810c6181cef290c6
 
   const safetySettings = [
     {
