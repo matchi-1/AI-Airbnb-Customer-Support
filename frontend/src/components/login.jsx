@@ -1,10 +1,10 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import "../css/login.css";
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import {auth} from '../firebase';
 import { useNavigate, Link} from "react-router-dom";
+import { AuthContext } from "../Authcontext";
 
 export default function Login() {
+  const {login}  = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
@@ -15,7 +15,7 @@ export default function Login() {
     e.preventDefault();
     setError(null);
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await login(email, password);
       navigate('/chat');
       
     } catch (err) {

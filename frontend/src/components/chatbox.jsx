@@ -1,7 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
+import { AuthContext } from "../Authcontext";
 import "../css/chatbox.css";
 
 export default function Chatbox() {
+  const {userProfile} = useContext(AuthContext);
   const [chatHistory, setChatHistory] = useState([]);
   const [firstChat, setFirstChat] = useState(true);
   const [userInput, setUserInput] = useState("");
@@ -95,6 +97,7 @@ export default function Chatbox() {
       </div>
       <div id="chat-main">
         <div id="chat-history">
+          <div className="bot-message">Hello, {userProfile?.first_name || 'User'}!</div>
           {firstChat ? (
             <div id="prompt-container">
               {prompts.map((prompt, index) => (
