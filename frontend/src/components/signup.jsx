@@ -1,25 +1,25 @@
 import React, { useState } from "react";
 import "../css/signup.css";
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import {auth, db} from '../firebase';
-import { doc, setDoc } from 'firebase/firestore';
-import { useNavigate, Link} from "react-router-dom";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, db } from "../firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function SignUp() {
-  const [first_name, setFirstName] = useState('')
-  const [last_name, setLastName]= useState('')
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPwd, setConfirmPwd] = useState('')
+  const [first_name, setFirstName] = useState("");
+  const [last_name, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPwd, setConfirmPwd] = useState("");
 
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   function comparePasswords(pwd) {
-    if(pwd !== password){
-      setError('Passwords do not match')
+    if (pwd !== password) {
+      setError("Passwords do not match");
     } else {
-      setError(null)
+      setError(null);
     }
   }
 
@@ -27,7 +27,11 @@ export default function SignUp() {
     e.preventDefault();
     setError(null);
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       const user = userCredential.user;
 
       await setDoc(doc(db, "Users", user.uid), {
@@ -37,15 +41,14 @@ export default function SignUp() {
         password: password,
       });
 
-      navigate('/chat');
-
+      navigate("/chat");
     } catch (err) {
       setError(err.message);
     }
   };
 
-  return ( 
-    <div id = "chat-container">
+  return (
+    <div id="cred-container">
       <h2>Create an Account</h2>
       <form onSubmit={handleLogin}>
         <div>
@@ -98,10 +101,12 @@ export default function SignUp() {
         </div>
         <button type="submit">Submit</button>
         <div>
-          <p><Link to = "/">Already have an account?</Link></p>
+          <p>
+            <Link to="/">Already have an account?</Link>
+          </p>
         </div>
       </form>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-  </div>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+    </div>
   );
 }

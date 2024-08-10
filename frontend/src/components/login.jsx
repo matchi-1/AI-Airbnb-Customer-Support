@@ -1,12 +1,12 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import "../css/login.css";
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import {auth} from '../firebase';
-import { useNavigate, Link} from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
@@ -16,15 +16,14 @@ export default function Login() {
     setError(null);
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate('/chat');
-      
+      navigate("/chat");
     } catch (err) {
       setError(err.message);
     }
   };
 
-  return ( 
-    <div id = "chat-container">
+  return (
+    <div id="cred-container">
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
         <div>
@@ -47,10 +46,12 @@ export default function Login() {
         </div>
         <button type="submit">Login</button>
         <div>
-          <p><Link to="/signup">Don't have an account?</Link></p>
+          <p>
+            <Link to="/signup">Don't have an account?</Link>
+          </p>
         </div>
       </form>
       {error && <p>{error}</p>}
-  </div>
+    </div>
   );
 }
