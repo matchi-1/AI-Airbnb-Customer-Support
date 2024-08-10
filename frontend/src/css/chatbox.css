@@ -25,18 +25,13 @@
 }
 
 .user-message div,
-.bot-message div {
+.bot-message {
   width: 100%;
   padding: 0.6rem 1.1rem;
   border-radius: 15px;
   line-height: 1.1rem;
   font-family: "Roboto", sans-serif;
   font-size: 0.9rem;
-}
-
-.user-message,
-.bot-message {
-  font-size: 16px;
 }
 
 .user-message {
@@ -59,14 +54,16 @@
   align-self: center;
   color: #8b8b8b;
   justify-content: flex-start;
-}
-
-.bot-message .message {
   text-align: left;
   width: fit-content;
   max-width: 85%;
   margin: 1rem 1rem;
-  background-color: #f3f3f3;
+  background-color: #f2f2f2;
+}
+
+.bot-message a {
+  color: #e64e65; 
+  text-decoration: underline; 
 }
 
 form {
@@ -91,7 +88,7 @@ form {
 
 input[type="text"] {
   font-size: 16px;
-  color: #999999;
+  color: #bdbdbd;
   border: none;
   flex-grow: 1;
   margin-right: 10px;
