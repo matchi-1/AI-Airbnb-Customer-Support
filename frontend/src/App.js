@@ -13,7 +13,7 @@ function Chat() {
   const formatBotMessage = (message) => {
     message = message.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 
-    message = message.replace(/\n/g, '<br>');
+    message = message.replace(/\n/g, '<br>')
     message = message.replace(/(\d+)\.\s+/g, '<li>');
     message = message.replace(/<\/li><br>/g, '</li>');  
     if (message.includes('<li>')) {
