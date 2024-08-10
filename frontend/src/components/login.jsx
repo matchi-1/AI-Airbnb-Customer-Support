@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "../css/login.css";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
 import { useNavigate, Link } from "react-router-dom";
+import { AuthContext } from "../Authcontext";
 
 export default function Login() {
+  const { login } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -15,7 +15,7 @@ export default function Login() {
     e.preventDefault();
     setError(null);
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await login(email, password);
       navigate("/chat");
     } catch (err) {
       setError(err.message);
@@ -24,34 +24,38 @@ export default function Login() {
 
   return (
     <div id="cred-container">
-      <h2>Login</h2>
-      <form onSubmit={handleLogin}>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Login</button>
-        <div>
-          <p>
-            <Link to="/signup">Don't have an account?</Link>
-          </p>
-        </div>
-      </form>
-      {error && <p>{error}</p>}
+      <div className="content-header">
+        <h2>LOGIN</h2>
+      </div>
+      <div className="content-main">
+        <form onSubmit={handleLogin}>
+          <div>
+            <label>Email:</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label>Password:</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit">Login</button>
+          <div>
+            <p>
+              <Link to="/signup">Don't have an account?</Link>
+            </p>
+          </div>
+        </form>
+        {error && <p>{error}</p>}
+      </div>
     </div>
   );
 }
