@@ -151,22 +151,31 @@ export default function Chatbox() {
   };
 
   const formatBotMessage = (message) => {
+    // Bold text
     message = message.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+    
+    // Line breaks
     message = message.replace(/\n/g, "<br>");
+    
+    // Convert "- " bullets to <li> items with an extra line break after each item
+    message = message.replace(/- (.*?)(<br>|$)/g, "<li>$1</li><br>");
+    
+    // Wrap <li> elements in <ul> if they exist
+    if (message.includes("<li>")) {
+        message = message.replace(/(<li>.*<\/li><br>)+/g, (match) => "<ul>" + match + "</ul>");
+    }
+    
+    // Ordered list items
     message = message.replace(/(\d+)\.\s+/g, "<li>");
     message = message.replace(/<\/li><br>/g, "</li>");
-
-    if (message.includes("<li>")) {
-      message = "<ol>" + message + "</ol>";
-    }
-    message = message.replace(
-      /(https?:\/\/[^\s]+)/g,
-      '<a href="$1" target="_blank">$1</a>'
-    );
-
+    
+    // Find and replace the URL pattern with the hyperlink using the text in brackets
+    message = message.replace(/\[([^\]]+)\]\((https?:\/\/[^\s]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+  
     return message;
-  };
+};
 
+  
   useEffect(() => {
     // Scroll to the bottom of the chat history whenever it updates
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../css/feedbackContainer.css";
+import "../css/FeedbackContainer.css";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../firebase.js";
 
