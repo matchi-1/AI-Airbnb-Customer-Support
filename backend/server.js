@@ -3,6 +3,7 @@ const cors = require('cors');
 const { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } = require('@google/generative-ai');
 const dotenv = require('dotenv').config({path: '../.env'});
 
+
 const app = express();
 const port = process.env.PORT || 5000;
 app.use(express.json());
@@ -23,7 +24,7 @@ async function runChat(userInput) {
     temperature: 1,
     topP: 0.95,
     topK: 64,
-  };  
+  };
 
   const safetySettings = [
     {
@@ -40,8 +41,11 @@ async function runChat(userInput) {
 
   const result = await chat.sendMessage(userInput);
   const response = result.response;
-  return response.text();
+  const messageId = result.messageId; // Extract message ID
+
+  return { text: response.text(), messageId };
 }
+
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
@@ -52,13 +56,13 @@ app.get('/loader.gif', (req, res) => {
 app.post('/chat', async (req, res) => {
   try {
     const userInput = req.body?.userInput;
-    console.log('incoming /chat req', userInput)
+    console.log('incoming /chat req', userInput);
     if (!userInput) {
       return res.status(400).json({ error: 'Invalid request body' });
     }
 
-    const response = await runChat(userInput);
-    res.json({ response });
+    const { text, messageId } = await runChat(userInput);
+    res.json({ response: text, messageId }); 
   } catch (error) {
     console.error('Error in chat endpoint:', error);
     res.status(500).json({ error: 'Internal Server Error' });
