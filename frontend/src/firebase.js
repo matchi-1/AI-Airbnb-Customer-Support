@@ -3,9 +3,13 @@ import { initializeApp } from "firebase/app";
 import {getAuth } from 'firebase/auth';
 import {getFirestore} from 'firebase/firestore';
 
+
 // Your web app's Firebase configuration
+
+console.log("FIREBASE API KEY: ", process.env.REACT_APP_FIREBASE_API_KEY)
+
 const firebaseConfig = {
-  apiKey: "AIzaSyCiaQSWy-CjEzLrFa2kTW5qzO-nLFsUbVY",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: "airbnb-ai-support.firebaseapp.com",
   projectId: "airbnb-ai-support",
   storageBucket: "airbnb-ai-support.appspot.com",
