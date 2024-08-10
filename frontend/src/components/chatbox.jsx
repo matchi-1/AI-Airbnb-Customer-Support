@@ -1,16 +1,13 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import { AuthContext } from "../Authcontext";
 import "../css/chatbox.css";
+import { db } from '../firebase.js';
+import { doc, setDoc } from 'firebase/firestore';
+import FeedbackContainer from "../components/feedbackContainer.jsx";
+
 
 export default function Chatbox() {
   const {userProfile} = useContext(AuthContext);
-import React, { useState, useEffect, useRef } from "react";
-import { db } from '../firebase.js';
-import { doc, setDoc } from 'firebase/firestore';
-import "../css/chatbox.css";
-import FeedbackContainer from "../components/feedbackContainer.jsx";
-
-export default function Chatbox() {
   const [chatHistory, setChatHistory] = useState([]);
   const [firstChat, setFirstChat] = useState(true);
   const [userInput, setUserInput] = useState("");
