@@ -204,3 +204,16 @@ input[type="text"] {
 .txt-feedback-btn:hover {
   color: #9c9c9c;
 }
+
+@media (max-width: 600px) {
+  #chat-container {
+    width: 300px;
+  }
+  #chat-history {
+    height: 400px;
+  }
+  #prompt-container {
+    height: 70%;
+  }
+}
+
