@@ -12,15 +12,13 @@ function Chat() {
     message = message.replace(/\n/g, '<br>');
     message = message.replace(/(\d+)\.\s+/g, '<li>');
     message = message.replace(/<\/li><br>/g, '</li>');  
-
     if (message.includes('<li>')) {
         message = '<ol>' + message + '</ol>';
     }
-    message = message.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
+    message = message.replace(/\[([^\]]+)\]\((https?:\/\/[^\s]+)\)/g, '<a href="$2" target="_blank">$1</a>');
 
     return message;
 };
-
 
   const sendMessage = async (event) => {
     event.preventDefault();
