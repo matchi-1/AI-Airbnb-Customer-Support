@@ -1,5 +1,7 @@
 body {
   font-family: "Roboto", sans-serif;
+  font-size: 12px;  
+  line-height: 1.4;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,7 +11,7 @@ body {
 
 #chat-container {
   background-color: #fff;
-  border-radius: 10px;
+  border-radius: 10px;  
   padding: 20px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   width: 400px;
@@ -42,6 +44,30 @@ h4 {
   margin-bottom: 5px;
 }
 
+.bot-message ol,
+.bot-message ul{
+  padding-left: 20px; 
+  margin-top: 10px;
+  margin-bottom: 10px;
+  list-style-position: inside; 
+
+}
+.bot-message ol,
+.bot-message ul li {
+  margin-bottom: 8px;    
+  line-height: 1.4;
+  font-size: 14px;
+  
+}
+.bot-message a {
+  color: #0077cc;  
+  text-decoration: none;
+}
+
+.bot-message a:hover {
+  text-decoration: underline;
+}
+
 form {
   display: flex;
 }
@@ -69,4 +95,5 @@ button {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: 1000;  
 }

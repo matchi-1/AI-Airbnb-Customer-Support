@@ -6,6 +6,22 @@ function Chat() {
   const [userInput, setUserInput] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const formatBotMessage = (message) => {
+    message = message.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+    message = message.replace(/\n/g, '<br>');
+    message = message.replace(/(\d+)\.\s+/g, '<li>');
+    message = message.replace(/<\/li><br>/g, '</li>');  
+
+    if (message.includes('<li>')) {
+        message = '<ol>' + message + '</ol>';
+    }
+    message = message.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
+
+    return message;
+};
+
+
   const sendMessage = async (event) => {
     event.preventDefault();
     setLoading(true);
@@ -20,7 +36,11 @@ function Chat() {
       });
 
       const data = await response.json();
-      setChatHistory([...chatHistory, { type: 'user', text: userInput }, { type: 'bot', text: data.response }]);
+      
+      // Format the bot response before setting it to chat history
+      const formattedBotResponse = formatBotMessage(data.response);
+
+      setChatHistory([...chatHistory, { type: 'user', text: userInput }, { type: 'bot', text: formattedBotResponse }]);
       setUserInput('');
     } catch (error) {
       console.error('Error:', error);
@@ -34,9 +54,11 @@ function Chat() {
       <h4>AI Assistant</h4>
       <div id="chat-history">
         {chatHistory.map((msg, index) => (
-          <div key={index} className={msg.type === 'user' ? 'user-message' : 'bot-message'}>
-            {msg.text}
-          </div>
+          <div 
+            key={index} 
+            className={msg.type === 'user' ? 'user-message' : 'bot-message'} 
+            dangerouslySetInnerHTML={{ __html: msg.text }} // Use dangerouslySetInnerHTML to render formatted HTML
+          />
         ))}
       </div>
       <form onSubmit={sendMessage}>
