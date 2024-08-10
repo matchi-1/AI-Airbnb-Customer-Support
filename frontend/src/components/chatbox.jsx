@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
+import { db } from '../firebase.js';
+import { doc, setDoc } from 'firebase/firestore';
 import "../css/chatbox.css";
 import FeedbackContainer from "../components/feedbackContainer.jsx";
 
@@ -14,15 +16,51 @@ export default function Chatbox() {
   const handleCloseFeedback = () => setIsFeedbackOpen(false);
   const [feedbackIndex, setFeedbackIndex] = useState(null); // Track index of feedback
 
-  const handleFeedback = (index, type) => {
+  const generateMessageId = () => {
+    return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+  };  
+
+  const handleFeedback = async (index, feedbackType) => {
+    // Check if the bot message at the index has a messageId
+    let messageId = chatHistory[index]?.messageId;
+  
+    if (!messageId) {
+      // Generate a new messageId if it doesn't exist
+      messageId = generateMessageId();
+      
+      // Update the chatHistory with the new messageId
+      setChatHistory(prevChatHistory =>
+        prevChatHistory.map((msg, i) =>
+          i === index ? { ...msg, messageId } : msg
+        )
+      );
+    }
+  
+    try {
+      const feedbackData = {
+        messageId,
+        goodFeedback: feedbackType === 'up', // true for thumbs up, false for thumbs down
+        feedbackText: '',
+        timestamp: new Date(),
+      };
+  
+      const docRef = doc(db, 'Feedbacks', messageId);
+      await setDoc(docRef, feedbackData, { merge: true });
+  
+      console.log('Feedback saved successfully');
+    } catch (error) {
+      console.error('Error saving feedback:', error);
+    }
+
     // Update feedback state based on user input
     setFeedback((prevFeedback) => {
       const newFeedback = [...prevFeedback];
-      newFeedback[index] = type;
+      newFeedback[index] = feedbackType;
       return newFeedback;
     });
     setFeedbackIndex(index); // Update feedback index
   };
+  
 
   const bottomRef = useRef(null);
   const prompts = [
@@ -36,13 +74,15 @@ export default function Chatbox() {
   const sendMessage = async (event) => {
     event.preventDefault();
     if (loading) return;
+  
     setLoading(true);
     setFirstChat(false);
+  
     setChatHistory((prevChatHistory) => [
       ...prevChatHistory,
       { type: "user", text: userInput },
     ]);
-
+  
     try {
       const response = await fetch("http://localhost:5000/chat", {
         method: "POST",
@@ -51,30 +91,39 @@ export default function Chatbox() {
         },
         body: JSON.stringify({ userInput }),
       });
-
+  
       const data = await response.json();
+  
+      // Generate a unique messageId for the reply message
+      const messageId = generateMessageId();
+  
+      // Add reply to chat history with the generated messageId
       setChatHistory((prevChatHistory) => [
         ...prevChatHistory,
-        { type: "bot", text: data.response },
+        { id: messageId, type: "bot", text: data.response },
       ]);
+  
       setUserInput("");
     } catch (error) {
       console.error("Error:", error);
     } finally {
       setLoading(false);
     }
-  };
+  };  
 
   const sendPrompt = async (prompt) => {
     if (loading) return;
     setLoading(true);
     setFirstChat(false);
-
+  
+    // Generate a unique messageId for the prompt
+    const messageId = generateMessageId();
+  
     setChatHistory((prevChatHistory) => [
       ...prevChatHistory,
-      { type: "user", text: prompt },
+      { id: messageId, type: "user", text: prompt },
     ]);
-
+  
     try {
       const response = await fetch("http://localhost:5000/chat", {
         method: "POST",
@@ -83,11 +132,12 @@ export default function Chatbox() {
         },
         body: JSON.stringify({ userInput: prompt }),
       });
-
+  
       const data = await response.json();
+      
       setChatHistory((prevChatHistory) => [
         ...prevChatHistory,
-        { type: "bot", text: data.response },
+        { id: generateMessageId(), type: "bot", text: data.response },
       ]);
     } catch (error) {
       console.error("Error:", error);
@@ -95,6 +145,8 @@ export default function Chatbox() {
       setLoading(false);
     }
   };
+  
+
 
   useEffect(() => {
     // Scroll to the bottom of the chat history whenever it updates
@@ -149,9 +201,8 @@ export default function Chatbox() {
                     <img src="/assets/images/thumbs-down.png" alt="Thumbs Down" className="feedback-icon"/>
                   </button>
 
-                  {/* Conditionally render "Tell me more" button */}
                   {(feedback[index] === 'up' || feedback[index] === 'down') && (
-                    <button className="txt-feedback-btn" onClick={handleOpenFeedback}>
+                    <button className="txt-feedback-btn" onClick={() => handleOpenFeedback(index, feedback[index] === 'up')}>
                       Tell me more
                     </button>
                   )}
@@ -159,11 +210,15 @@ export default function Chatbox() {
                   <FeedbackContainer
                     isOpen={isFeedbackOpen && feedbackIndex === index}
                     onClose={handleCloseFeedback}
+                    messageId={msg.id} // pass messageId
+                    goodFeedback={feedback[index] === 'up'} // pass goodFeedback
                   />
                 </div>
               )}
             </div>
           ))}
+
+
 
 
           <div ref={bottomRef}></div>
