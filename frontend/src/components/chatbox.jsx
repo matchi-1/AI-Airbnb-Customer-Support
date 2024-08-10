@@ -3,9 +3,10 @@ import "../css/chatbox.css";
 
 export default function Chatbox() {
   const [chatHistory, setChatHistory] = useState([]);
-  const [firstChat, setFirstChat] = useState(true);
+  const [isFirstChat, setFirstChat] = useState(true);
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [feedback, setFeedback] = useState({}); // State to manage feedback
   const bottomRef = useRef(null);
   const prompts = [
     "I need help with booking a place.",
@@ -77,6 +78,13 @@ export default function Chatbox() {
     }
   };
 
+  const handleFeedback = (index, type) => {
+    setFeedback((prevFeedback) => ({
+      ...prevFeedback,
+      [index]: prevFeedback[index] === type ? null : type,
+    }));
+  };
+
   useEffect(() => {
     // Scroll to the bottom of the chat history whenever it updates
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -95,7 +103,7 @@ export default function Chatbox() {
       </div>
       <div id="chat-main">
         <div id="chat-history">
-          {firstChat ? (
+          {isFirstChat ? (
             <div id="prompt-container">
               {prompts.map((prompt, index) => (
                 <button
@@ -115,11 +123,38 @@ export default function Chatbox() {
               key={index}
               className={msg.type === "user" ? "user-message" : "bot-message"}
             >
-              <div>{msg.text}</div>
+              <div className="message">{msg.text}</div>
+              {msg.type === "bot" ? (
+                <div className="feedback-btns">
+                  <button
+                    className="feedback-btn"
+                    onClick={() => handleFeedback(index, "up")}
+                  >
+                    <i
+                      className={`bi ${
+                        feedback[index] === "up"
+                          ? "bi-hand-thumbs-up-fill"
+                          : "bi-hand-thumbs-up"
+                      }`}
+                    ></i>
+                  </button>
+                  <button
+                    className="feedback-btn"
+                    onClick={() => handleFeedback(index, "down")}
+                  >
+                    <i
+                      className={`bi ${
+                        feedback[index] === "down"
+                          ? "bi-hand-thumbs-down-fill"
+                          : "bi-hand-thumbs-down"
+                      }`}
+                    ></i>
+                  </button>
+                </div>
+              ) : null}
             </div>
           ))}
 
-          {/* Reference to the bottom of the chat */}
           <div ref={bottomRef}></div>
           {loading && (
             <div id="loader">

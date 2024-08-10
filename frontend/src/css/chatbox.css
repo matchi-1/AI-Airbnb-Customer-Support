@@ -48,11 +48,12 @@ h4 {
 
 .bot-message {
   display: flex;
+  flex-direction: column;
   color: #737373;
   justify-content: flex-start;
 }
 
-.bot-message div {
+.bot-message .message {
   text-align: left;
   width: fit-content;
   background-color: #f0f0f0;
@@ -140,4 +141,19 @@ input[type="text"] {
 #prompt-container button:hover {
   background-color: #ff5a5f;
   color: white;
+}
+
+.feedback-btn {
+  background: none;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  transition: 0.2s ease-in-out;
+  padding: 0.2rem 0.6rem;
+  margin-right: 5px;
+  border-radius: 5px;
+}
+
+.feedback-btn:hover {
+  background-color: #f1f1f1;
 }
