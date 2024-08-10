@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../css/chatbox.css";
-import FeedbackContainer from "../components/feedbackContainer.jsx";
+import Feedback from "../components/feedback.jsx";
 
 export default function Chatbox() {
   const [chatHistory, setChatHistory] = useState([]);
@@ -175,7 +175,7 @@ export default function Chatbox() {
                     </button>
                   )}
 
-                  <FeedbackContainer
+                  <Feedback
                     isOpen={isFeedbackOpen && feedbackIndex === index}
                     onClose={handleCloseFeedback}
                   />

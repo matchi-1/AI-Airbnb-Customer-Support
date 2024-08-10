@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import '../css/FeedbackContainer.css'; 
+import React, { useState } from "react";
+import "../css/feedback.css";
 
-const FeedbackContainer = ({ isOpen, onClose }) => {
-  const [feedback, setFeedback] = useState('');
+const Feedback = ({ isOpen, onClose }) => {
+  const [feedback, setFeedback] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
     // Handle feedback submission logic here
-    console.log('Feedback submitted:', feedback);
-    setFeedback('');
-    onClose(); 
+    console.log("Feedback submitted:", feedback);
+    setFeedback("");
+    onClose();
   };
 
   if (!isOpen) return null;
@@ -17,12 +17,11 @@ const FeedbackContainer = ({ isOpen, onClose }) => {
   return (
     <div className="feedback-popup">
       <div className="feedback-popup-content">
-        
         <button className="feedback-popup-close" onClick={onClose}>
-        &times;
+          &times;
         </button>
         <p>What did you think of the assistant's response?</p>
-        
+
         <form onSubmit={handleSubmit}>
           <textarea
             value={feedback}
@@ -31,11 +30,13 @@ const FeedbackContainer = ({ isOpen, onClose }) => {
             cols="50"
             placeholder="Write your feedback here..."
           />
-          <button type="submit" className="submit-btn">Submit</button>
+          <button type="submit" className="submit-btn">
+            Submit
+          </button>
         </form>
       </div>
     </div>
   );
 };
 
-export default FeedbackContainer;
+export default Feedback;
