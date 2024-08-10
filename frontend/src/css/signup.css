@@ -17,6 +17,10 @@
     width: 100% !important;
   }
 
+  #content-container {
+    width: 300px;
+  }
+
   .form-group {
     flex-direction: column;
   }
