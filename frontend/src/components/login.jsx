@@ -24,7 +24,7 @@ export default function Login() {
   };
 
   return ( 
-    <div id = "container">
+    <div id = "chat-container">
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
         <div>

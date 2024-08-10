@@ -45,7 +45,7 @@ export default function SignUp() {
   };
 
   return ( 
-    <div id = "container">
+    <div id = "chat-container">
       <h2>Create an Account</h2>
       <form onSubmit={handleLogin}>
         <div>
