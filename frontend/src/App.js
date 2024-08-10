@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
-import './App.css'; 
+import { BrowserRouter, Routes, Route } from 'react-router-dom'; // Adjust the import for routing
+import './App.css';
+import Header from './components/Header'; // Assuming these are the components you want to include
+import SignUp from './components/SignUp';
+import Login from './components/Login';
 
 function Chat() {
   const [chatHistory, setChatHistory] = useState([]);
@@ -18,7 +22,7 @@ function Chat() {
     message = message.replace(/\[([^\]]+)\]\((https?:\/\/[^\s]+)\)/g, '<a href="$2" target="_blank">$1</a>');
 
     return message;
-};
+  };
 
   const sendMessage = async (event) => {
     event.preventDefault();
@@ -73,4 +77,17 @@ function Chat() {
   );
 }
 
-export default Chat;
+function App() {
+  return (
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Chat />} /> {/* Use the Chat component */}
+        <Route path="signup" element={<SignUp />} />
+        <Route path="login" element={<Login />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
