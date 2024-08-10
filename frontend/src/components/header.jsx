@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import "../css/header.css";
 
 export default function Header() {
+  const isNavItemVisible = true; // replace with your logic to determine if nav items are already in the page
+
   return (
     <nav className="navbar bg-body-tertiary fixed-top">
       <div className="container-fluid">
@@ -47,21 +49,25 @@ export default function Header() {
           </div>
           <div className="offcanvas-body">
             <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
-              <li className="nav-item">
-                <Link to="/login" className="nav-link" aria-current="page">
-                  Login
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/signup" className="nav-link">
-                  Signup
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/" className="nav-link">
-                  Chat
-                </Link>
-              </li>
+              {isNavItemVisible && (
+                <>
+                  <li className="nav-item">
+                    <Link to="/login" className="nav-link" aria-current="page">
+                      Login
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/signup" className="nav-link">
+                      Signup
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/" className="nav-link">
+                      Chat
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>

@@ -20,9 +20,11 @@ export default function Chatbox() {
     if (loading) return;
     setLoading(true);
     setFirstChat(false);
+    setUserInput("");
+    const input = userInput;
     setChatHistory((prevChatHistory) => [
       ...prevChatHistory,
-      { type: "user", text: userInput },
+      { type: "user", text: input },
     ]);
 
     try {
@@ -31,7 +33,7 @@ export default function Chatbox() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ userInput }),
+        body: JSON.stringify({ input }),
       });
 
       const data = await response.json();
@@ -51,6 +53,7 @@ export default function Chatbox() {
     if (loading) return;
     setLoading(true);
     setFirstChat(false);
+    setUserInput("");
 
     setChatHistory((prevChatHistory) => [
       ...prevChatHistory,
@@ -124,34 +127,6 @@ export default function Chatbox() {
               className={msg.type === "user" ? "user-message" : "bot-message"}
             >
               <div className="message">{msg.text}</div>
-              {msg.type === "bot" ? (
-                <div className="feedback-btns">
-                  <button
-                    className="feedback-btn"
-                    onClick={() => handleFeedback(index, "up")}
-                  >
-                    <i
-                      className={`bi ${
-                        feedback[index] === "up"
-                          ? "bi-hand-thumbs-up-fill"
-                          : "bi-hand-thumbs-up"
-                      }`}
-                    ></i>
-                  </button>
-                  <button
-                    className="feedback-btn"
-                    onClick={() => handleFeedback(index, "down")}
-                  >
-                    <i
-                      className={`bi ${
-                        feedback[index] === "down"
-                          ? "bi-hand-thumbs-down-fill"
-                          : "bi-hand-thumbs-down"
-                      }`}
-                    ></i>
-                  </button>
-                </div>
-              ) : null}
             </div>
           ))}
 
@@ -170,6 +145,7 @@ export default function Chatbox() {
               onChange={(e) => setUserInput(e.target.value)}
               placeholder="Enter your message"
               disabled={loading}
+              required
             />
             <button className="send-btn" type="submit">
               <img src="/assets/images/send.png" alt="Send Message" />
