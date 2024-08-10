@@ -1,7 +1,12 @@
-import React, { createContext, useState, useEffect } from 'react';
-import { onAuthStateChanged, signInWithEmailAndPassword, fetchSignInMethodsForEmail, signOut } from 'firebase/auth';
-import { auth, db } from './firebase'; 
-import { getDocs, query, where, collection } from 'firebase/firestore';
+import React, { createContext, useState, useEffect } from "react";
+import {
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  fetchSignInMethodsForEmail,
+  signOut,
+} from "firebase/auth";
+import { auth, db } from "./firebase";
+import { getDocs, query, where, collection } from "firebase/firestore";
 
 export const AuthContext = createContext();
 
@@ -13,7 +18,7 @@ export const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         setCurrentUser(user);
-        const profile = await fetchUserProfile(user.email); 
+        const profile = await fetchUserProfile(user.email);
         setUserProfile(profile);
       } else {
         setCurrentUser(null);
@@ -45,29 +50,31 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       const user = userCredential.user;
       const profile = await fetchUserProfile(email);
 
       setCurrentUser(user);
       setUserProfile(profile);
-
     } catch (error) {
       const profile = await fetchUserProfile(email);
       if (profile == null) {
-        throw new Error('No user found with this email, try again.');
+        throw new Error("No user found with this email, try again.");
       } else {
-        throw new Error('Invalid password, try again')
+        throw new Error("Invalid password, try again");
       }
     }
-      
   };
 
   const logout = async () => {
     try {
       await signOut(auth);
     } catch (error) {
-      console.error('Error logging out:', error);
+      console.error("Error logging out:", error);
     }
   };
 

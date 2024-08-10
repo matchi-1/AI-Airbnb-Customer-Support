@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./css/main.css";
 import App from "./App";
-import { AuthProvider } from './Authcontext';
+import { AuthProvider } from "./Authcontext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
