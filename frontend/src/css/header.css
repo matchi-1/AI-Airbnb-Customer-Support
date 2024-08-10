@@ -21,6 +21,11 @@
   height: 20px;
 }
 
+.navbar-toggler:focus {
+  outline: none;
+  box-shadow: 0 0 2px rgba(0, 123, 255, 0.5); /* Adds a subtle blue glow */
+}
+
 .account-icon {
   margin-left: 10px;
   font-size: 26px;

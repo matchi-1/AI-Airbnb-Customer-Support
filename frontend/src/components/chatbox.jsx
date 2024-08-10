@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
+import { AuthContext } from "../Authcontext";
 import { db } from "../firebase.js";
 import { doc, setDoc } from "firebase/firestore";
 import "../css/chatbox.css";
 import FeedbackContainer from "../components/feedbackContainer.jsx";
 
 export default function Chatbox() {
+  const { userProfile } = useContext(AuthContext);
   const [chatHistory, setChatHistory] = useState([]);
   const [firstChat, setFirstChat] = useState(true);
   const [userInput, setUserInput] = useState("");
@@ -15,6 +17,13 @@ export default function Chatbox() {
   const handleOpenFeedback = () => setIsFeedbackOpen(true);
   const handleCloseFeedback = () => setIsFeedbackOpen(false);
   const [feedbackIndex, setFeedbackIndex] = useState(null); // Track index of feedback
+  const bottomRef = useRef(null);
+  const prompts = [
+    "I need help with booking a place.",
+    "How do I modify or cancel my reservation?",
+    "Can you help me with a billing issue?",
+    "How can I contact the host of my reservation?",
+  ];
 
   const generateMessageId = () => {
     return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
@@ -60,14 +69,6 @@ export default function Chatbox() {
     });
     setFeedbackIndex(index); // Update feedback index
   };
-
-  const bottomRef = useRef(null);
-  const prompts = [
-    "I need help with booking a place.",
-    "How do I modify or cancel my reservation?",
-    "Can you help me with a billing issue?",
-    "How can I contact the host of my reservation?",
-  ];
 
   const sendMessage = async (event) => {
     event.preventDefault();
@@ -162,6 +163,12 @@ export default function Chatbox() {
       </div>
       <div id="chat-main">
         <div id="chat-history">
+          <div className="bot-message">
+            <div>
+              Hi, {userProfile?.first_name || "User"}! I’m an AI-powered
+              assistant, how can I help you?
+            </div>
+          </div>
           {firstChat ? (
             <div id="prompt-container">
               {prompts.map((prompt, index) => (

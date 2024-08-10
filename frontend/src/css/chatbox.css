@@ -134,7 +134,7 @@ input[type="text"] {
   justify-content: flex-end;
   align-items: flex-end;
   width: 100%;
-  height: 100%;
+  height: 80%;
 }
 
 #prompt-container button {

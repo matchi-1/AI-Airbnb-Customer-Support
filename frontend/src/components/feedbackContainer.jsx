@@ -1,34 +1,34 @@
-import React, { useState } from 'react';
-import '../css/FeedbackContainer.css'; 
-import { doc, setDoc } from 'firebase/firestore';
-import { db } from '../firebase.js';
+import React, { useState } from "react";
+import "../css/feedbackContainer.css";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../firebase.js";
 
 const FeedbackContainer = ({ isOpen, onClose, messageId, goodFeedback }) => {
-  const [feedback, setFeedback] = useState('');
+  const [feedback, setFeedback] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!messageId) {
-      console.error('Message ID is not provided');
+      console.error("Message ID is not provided");
       return;
     }
 
     try {
       const feedbackData = {
         messageId,
-        goodFeedback, 
+        goodFeedback,
         feedbackText: feedback,
         timestamp: new Date(),
       };
-      
-      const docRef = doc(db, 'Feedbacks', messageId);
+
+      const docRef = doc(db, "Feedbacks", messageId);
       await setDoc(docRef, feedbackData, { merge: true });
 
-      console.log('Feedback submitted successfully');
-      setFeedback('');
-      onClose(); 
+      console.log("Feedback submitted successfully");
+      setFeedback("");
+      onClose();
     } catch (error) {
-      console.error('Error submitting feedback:', error);
+      console.error("Error submitting feedback:", error);
     }
   };
 
@@ -41,7 +41,7 @@ const FeedbackContainer = ({ isOpen, onClose, messageId, goodFeedback }) => {
           &times;
         </button>
         <p>What did you think of the assistant's response?</p>
-        
+
         <form onSubmit={handleSubmit}>
           <textarea
             value={feedback}
@@ -50,7 +50,9 @@ const FeedbackContainer = ({ isOpen, onClose, messageId, goodFeedback }) => {
             cols="50"
             placeholder="Write your feedback here..."
           />
-          <button type="submit" className="submit-btn">Submit</button>
+          <button type="submit" className="submit-btn">
+            Submit
+          </button>
         </form>
       </div>
     </div>
