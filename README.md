@@ -1,8 +1,6 @@
 ## Airbnb AI Customer Support Assistant
 
-Powered by Gemini 1.5 Pro.
-<br>
-Designed to enhance user experience with intelligent, personalized assistance.
+Powered by Gemini 1.5 Pro. It is designed to enhance user experience with intelligent, personalized assistance.
 It addresses concerns and FAQs regarding Airbnb's usage, utilizes markdown formatting for clear and engaging replies,
 supports multiple languages for global accessibility, and includes a feedback mechanism for continuous improvement.
 
@@ -13,27 +11,17 @@ supports multiple languages for global accessibility, and includes a feedback me
   <img src="assets/4.png" alt="Image 4" style="margin: 10px;">
   <img src="assets/5.png" alt="Image 5" style="margin: 10px;">
   <img src="assets/6.png" alt="Image 6" style="margin: 10px;">
-  <img src="assets/7.png" alt="Image 7" style="margin: 10px;">
 </div>
 
 <br>
 <br>
 
-## Quick Guide to Installation
+## Quick Guide
 
 1. **Clone the Repository:**
    - Open your terminal and run: `git clone https://github.com/matchi-1/Airbnb-AI-Customer-Support.git`
 2. **Install dependencies:**
    - Make sure you have Node.js installed. If not, you can install it [here](https://nodejs.org/en).
-   - Run:
-     ```
-      npm install
-      cd backend
-      npm install
-      cd ..
-      cd frontend
-      npm install
-      cd ..
-      ```
+   - Run: `npm install`
 3. **Run the program**
    - Run: `npm start`

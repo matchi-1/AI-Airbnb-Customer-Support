@@ -92,10 +92,8 @@
   color: #707070;
 }
 
-
 @media (max-width: 600px) {
   #content-container {
     width: 300px;
   }
-
 }
