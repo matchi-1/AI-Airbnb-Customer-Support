@@ -22,7 +22,16 @@ supports multiple languages for global accessibility, and includes a feedback me
    - Open your terminal and run: `git clone https://github.com/matchi-1/Airbnb-AI-Customer-Support.git`
 2. **Install dependencies:**
    - Make sure you have Node.js installed. If not, you can install it [here](https://nodejs.org/en).
-   - Run: `npm install`
+   - Run:
+     ```
+      npm install
+      cd backend
+      npm install
+      cd ..
+      cd frontend
+      npm install
+      cd ..
+      ```
 3. **Create .env file in the root directory and .env.local file in the frontend directory:**
    - Write:
        ```
